@@ -1,0 +1,49 @@
+🧩 Assembler Module – SystemVerilog-Based Instruction Encoder
+The Assembler Module is the first stage in our custom processor design pipeline. 
+It is responsible for translating human-readable assembly instructions into machine-readable 40-bit binary opcodes, based on a predefined custom instruction set architecture (ISA).
+ 
+✅ Features:-
+Supports 32 custom instructions (arithmetic, logical, shift, compare, data transfer, and control operations).
+Handles all four operand modes:
+Register–Register
+Register–Immediate
+Immediate–Register
+Immediate–Immediate
+
+Performs strict error checking on:-
+Invalid mnemonics
+Register index out of bounds (0–255)
+Immediate value range violations (−256 to 255)
+
+Outputs fully encoded instructions in 40-bit hexadecimal format to output.txt.
+
+📦 How It Works
+Initialization:-
+A lookup table instr_map maps assembly mnemonics (like ADD, MOV, REV, etc.) to 6-bit binary opcodes.
+
+Line-by-Line Parsing:-
+Each line from input.txt is parsed into:
+mnemonic (e.g., "ADD")
+op1 (e.g., "R1" or "#10")
+op2 (e.g., "R2" or "#25")
+
+Mode Detection:
+Based on operand types (Register or Immediate), the assembler assigns a mode (00, 01, 10, 11).
+
+Encoding:
+A 40-bit instruction is formed:
+[39:34] => Opcode (6 bits)  
+[33:32] => Mode (2 bits)  
+[31:0]  => Operands (Registers or Immediates)
+
+Error Handling:
+If an invalid instruction or operand is found, the module logs an error and writes "XXXXXXXXXX" as a placeholder.
+
+Output:
+Final 40-bit machine instructions are written to output.txt in hexadecimal format.
+
+📁 File I/O Summary
+File	Description
+input.txt	Contains user-level assembly code
+output.txt	Contains encoded 40-bit instructions
+

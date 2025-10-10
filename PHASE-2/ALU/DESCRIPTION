@@ -1,0 +1,59 @@
+# ⚙️ Module: Arithmetic Logic Unit (ALU)  
+**Multi-Functional ALU**
+
+## 🧩 Overview  
+The ALU (Arithmetic Logic Unit) is the computational core of the processor. It performs a variety of **arithmetic**, **logical**, **shifting**, **comparison**, and **custom operations** on two 32-bit operands based on a 6-bit `opcode`. This ALU is built to handle **32 distinct operations**, making it versatile for general-purpose and custom hardware applications.
+
+## ✅ Key Features  
+- 🔢 **32-bit Operand Support**  
+  Operates on two 32-bit inputs (register or immediate) and outputs 32-bit result.
+
+- 🧠 **32 Operations** across:
+  - Arithmetic: ADD, SUB, MUL, DIV, MOD, INC, DEC, NEG
+  - Logical: AND, OR, XOR, NOT, NAND, NOR, XNOR
+  - Shifting: SHL (<<), SHR (>>), SAR (arithmetic right)
+  - Comparison: EQ, NE, GT, LT, GE, LE, ZERO
+  - Special: MOV, ROR, ROL, MAX, MIN, REV, SWAP
+
+- 🔁 **Operand Flexibility (4 Modes)**  
+  Supports:
+  - Register–Register  
+  - Register–Immediate  
+  - Immediate–Register  
+  - Immediate–Immediate  
+
+- 📝 **Result Routing**  
+  By default, the output is written back to `Operand1`'s register, except for SWAP which updates both operand registers.
+
+## 🔧 Functional Description  
+- The ALU fetches operands either from **registers** or **immediate values** based on the `mode` signal.  
+- Operation is selected using the 6-bit `opcode`.  
+- Computed result is routed back to the appropriate register(s).  
+- Special handling exists for instructions like `SWAP`, `MOV`, and `REV` (bit reversal).  
+- Arithmetic right shift (`SAR`) and signed comparisons are supported using `$signed()` casting.
+
+## 📦 I/O Port Summary
+
+| Signal         | Width      | Direction | Description                              |
+|----------------|------------|-----------|------------------------------------------|
+| `clk`          | 1 bit      | Input     | Clock signal                             |
+| `rst`          | 1 bit      | Input     | Active-high reset                        |
+| `opcode`       | 6 bits     | Input     | Selects ALU operation                    |
+| `mode`         | 2 bits     | Input     | Operand selection mode                   |
+| `op1_addr`     | 8 bits     | Input     | Address of first operand (register)      |
+| `op2_addr`     | 8 bits     | Input     | Address of second operand (register)     |
+| `op1_imm`      | 16 bits    | Input     | Immediate value for operand1             |
+| `op2_imm`      | 16 bits    | Input     | Immediate value for operand2             |
+| `regfile_in`   | 256×32 bit | Input     | All register values from register file   |
+| `dest_addr`    | 8 bits     | Output    | Target address for writing result        |
+| `dest_data`    | 32 bits    | Output    | Computed ALU result                      |
+| `write_en`     | 1 bit      | Output    | Write enable for primary destination     |
+| `dest_addr2`   | 8 bits     | Output    | Second target address (for SWAP)         |
+| `dest_data2`   | 32 bits    | Output    | Data for second target (for SWAP)        |
+| `write_en2`    | 1 bit      | Output    | Write enable for second destination      |
+
+## 💡 Highlights 
+- ✅ Bit reversal (REV) and dual write-back (SWAP) support  
+- ✅ Graceful handling of divide-by-zero and invalid modes  
+- 🧪 Ideal for use in custom ISA processor pipelines, FPGA projects, or simulation environments  
+

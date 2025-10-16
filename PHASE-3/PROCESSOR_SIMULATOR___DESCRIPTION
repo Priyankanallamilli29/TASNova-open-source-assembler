@@ -1,0 +1,24 @@
+# 🧪 Processor Simulator Module
+
+## Description
+
+The `processor_simulator` module acts as a top-level testbench to simulate the behavior of a custom processor executing instructions from a program. 
+It interfaces with both the **ALU** and **register file** modules to perform the following key tasks:
+
+- Accepts a pre-compiled instruction program as input.
+- Decodes and executes each instruction using the ALU.
+- Updates the register file based on operation results.
+- Tracks and displays final values of all used registers.
+
+---
+
+## 🔍 Key Highlights
+
+- ✅ **Step-by-Step Execution**     :  The simulation runs in single-step (clocked) mode, allowing users to trace how each instruction is executed.
+- 📄 **Instruction-Level Logging**  :  For every instruction, the simulator displays:
+  - The decoded operation (e.g., `ADD R1 R2`)
+  - The exact computation performed (e.g., `R1 = R1 + R2 = 45 + 10 = 55`)
+- 📤 **Final Register Dump**        :  After completing all instructions, the module writes the final values of all modified registers into a log file.
+- 🚨 **Error Detection**            :  If a register is used before initialization, the simulator flags it and halts the simulation.
+
+---

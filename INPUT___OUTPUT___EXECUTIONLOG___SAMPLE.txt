@@ -1,0 +1,32 @@
+Input Instructions:-
+MOV R1 #03
+MOV R2 #05
+ADD R1 R2
+MOV R3 #20
+SUB R3 #05 
+
+Hex code:-
+7d01000300
+7d02000500
+0401020000
+7d03001400
+0903000500
+
+Output:
+
+Final Register Values:
+R1 = 8
+R2 = 5
+R3 = 15
+
+----------------------------------------
+Instruction 0: MOV R1 #3
+MOV: R1 <- 3
+Instruction 1: MOV R2 #5
+MOV: R2 <- 5
+Instruction 2: ADD R1 R2
+ADD: R1 <- R1 ADD R2 = 3 ADD 5 = 8
+Instruction 3: MOV R3 #20
+MOV: R3 <- 20
+Instruction 4: SUB R3 #5
+SUB: R3 <- R3 SUB 5 = 20 SUB 5 = 15

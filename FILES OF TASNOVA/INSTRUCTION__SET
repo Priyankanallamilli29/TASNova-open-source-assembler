@@ -1,0 +1,43 @@
+## 🧾 Supported Instruction Set
+
+The TASNova custom processor currently supports the following 30+ instructions. 
+Each instruction is assigned a unique 6-bit opcode and is fully supported by the assembler, decoder, ALU, and processor simulator.
+
+| Instruction | Operation             | 6-bit Opcode (Binary) |
+|-------------|------------------------|------------------------|
+| `ADD`       | Addition               | `000100`              |
+| `SUB`       | Subtraction            | `001001`              |
+| `MUL`       | Multiplication         | `000101`              |
+| `DIV`       | Division               | `000110`              |
+| `MOD`       | Modulus                | `000111`              |
+| `INC`       | Increment              | `010000`              |
+| `DEC`       | Decrement              | `010001`              |
+| `AND`       | Bitwise AND            | `010010`              |
+| `OR`        | Bitwise OR             | `010011`              |
+| `XOR`       | Bitwise XOR            | `010100`              |
+| `NOT`       | Bitwise NOT            | `010101`              |
+| `NAND`      | Bitwise NAND           | `010110`              |
+| `NOR`       | Bitwise NOR            | `010111`              |
+| `XNOR`      | Bitwise XNOR           | `011000`              |
+| `SHL`       | Logical Shift Left     | `011001`              |
+| `SHR`       | Logical Shift Right    | `011010`              |
+| `SAR`       | Arithmetic Shift Right | `011011`              |
+| `ROL`       | Rotate Left            | `011100`              |
+| `ROR`       | Rotate Right           | `011101`              |
+| `CMP`       | Compare (sets flags)   | `011110`              |
+| `EQ`        | Equal comparison       | `011111`              |
+| `NE`        | Not equal comparison   | `100000`              |
+| `GT`        | Greater than           | `100001`              |
+| `LT`        | Less than              | `100010`              |
+| `GE`        | Greater or equal       | `100011`              |
+| `LE`        | Less or equal          | `100100`              |
+| `MOV`       | Move                   | `111101`              |
+| `NEG`       | Negation               | `100110`              |
+| `ZERO`      | Clear register         | `100111`              |
+| `MAX`       | Maximum of two values  | `101000`              |
+| `MIN`       | Minimum of two values  | `101001`              |
+| `SWAP`      | Swap registers         | `001000`              |
+| `REV`       | Bit reverse            | `101010`              |
+
+> Total available opcodes: 64 (6-bit range).  
+> Unused opcodes are reserved for future expansion.

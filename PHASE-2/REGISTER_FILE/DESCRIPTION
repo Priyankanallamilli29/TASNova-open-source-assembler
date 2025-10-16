@@ -1,0 +1,35 @@
+📁 Module: Register File (Phase-2)
+Custom 32-bit Processor – Register Bank
+
+🧩 Overview
+The Register File is a crucial module in our custom processor design. 
+It temporarily stores and retrieves data during program execution. 
+The design implements 256 general-purpose 32-bit registers (R0 to R255) to support a wide range of arithmetic, logical, and memory operations.
+
+✅ Key Features:-
+🧠 256 Registers (R0 to R255), each 32 bits wide.
+✍️ Dual Write Ports    :   Simultaneous writing to two separate registers.
+🔁 Synchronous Reset   :   Clears all register values to zero when reset is active.
+🔍 Combinational Read  :   Always outputs the current values of all registers.
+
+🔧 Functional Description:-
+Each register holds 32-bit data, which may be:
+Loaded from ALU operations.
+Accessed by the instruction decoder.
+Registers are written synchronously on the rising edge of the clock (clk), if enabled.
+Reset clears all register values to zero (rst).
+All register contents are continuously available at regfile_out.
+
+📦 I/O Port Summary
+
+| Signal       | Width       | Direction | Description                            |
+|--------------|-------------|-----------|----------------------------------------|
+| `clk`        | 1 bit       | Input     | Clock signal (rising edge triggered)   |
+| `rst`        | 1 bit       | Input     | Active-high synchronous reset          |
+| `write_en`   | 1 bit       | Input     | Enables write for `addr1`              |
+| `write_en2`  | 1 bit       | Input     | Enables write for `addr2`              |
+| `addr1`      | 8 bits      | Input     | Address for the first write            |
+| `addr2`      | 8 bits      | Input     | Address for the second write           |
+| `data1`      | 32 bits     | Input     | Data for register `addr1`              |
+| `data2`      | 32 bits     | Input     | Data for register `addr2`              |
+| `regfile_out`| 256 × 32 b  | Output    | All register values available for read |

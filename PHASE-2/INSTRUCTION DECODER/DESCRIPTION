@@ -1,0 +1,75 @@
+# Instruction Decoder Module
+
+## Overview
+
+This SystemVerilog module implements a **custom instruction decoder** for a 40-bit wide instruction memory, designed to read and parse instructions from an external file (`output.txt`). 
+The decoded fields are then passed forward in a typical processor pipeline.
+
+### Instruction Format
+
+| Bits     | Field    | Description                       |
+|----------|----------|-----------------------------------|
+| [39:34]  | Opcode   | Operation code (6 bits)           |
+| [33:32]  | Mode     | Operand mode selector (2 bits)    |
+| [31:0]   | Operand  | Two operands packed into 32 bits  |
+
+---
+
+## 🔧 Key Features
+
+### ✅ Instruction Memory Loading  
+- On initialization, the module reads instructions from a text file (`output.txt`) where each line contains a 40-bit instruction in hexadecimal format.  
+- These instructions are stored in a 256-entry internal memory array.
+
+### ✅ Instruction Fetch and Decode  
+- On every positive clock edge (or asynchronous reset), the module fetches the next instruction, increments the instruction pointer, and decodes the instruction fields: `opcode`, `mode`, and `operands`.
+
+### ✅ Operand Extraction Based on Mode  
+The operand field (32 bits) is decoded into two 16-bit operands based on the 2-bit mode field:
+
+| Mode | Operand 1                     | Operand 2                     |
+|------|-------------------------------|-------------------------------|
+| `00` | Zero-extended `instr[31:24]`  | Zero-extended `instr[23:16]`  |
+| `01` | Zero-extended `instr[31:24]`  |          `instr[23:8]`        |
+| `10` |         `instr[31:16]`        | Zero-extended `instr[15:8]`   |
+| `11` |         `instr[31:16]`        |         `instr[15:0]`         |
+
+### ✅ Valid Signal  
+- The `valid` output is high when a decoded instruction is present and valid on output ports.
+
+### ✅ Reset Functionality  
+- On `rst`, the instruction pointer resets to 0, and all output signals are cleared.
+
+---
+
+## 🔌 Ports
+
+| Port Name  | Direction | Width | Description                             |
+|------------|-----------|-------|-----------------------------------------|
+| `clk`      | Input     | 1     | Clock signal                            |
+| `rst`      | Input     | 1     | Active-high asynchronous reset          |
+| `opcode`   | Output    | 6     | Decoded opcode field                    |
+| `mode`     | Output    | 2     | Decoded mode field                      |
+| `operand1` | Output    | 16    | First operand after decoding            |
+| `operand2` | Output    | 16    | Second operand after decoding           |
+| `valid`    | Output    | 1     | High when a valid instruction is present |
+
+---
+
+## 🧠 Use Case
+
+This module is typically integrated into a **custom processor pipeline** to deliver decoded instructions to execution units. It demonstrates:
+
+- File I/O in SystemVerilog using `$fopen`, `$fgets`, and `$sscanf`
+- Custom opcode decoding for programmable processor architectures
+- Flexible operand mode handling for multi-format instruction support
+
+---
+
+## 🗂️ File I/O Format
+
+**Input File (`output.txt`)**  
+- Each line: one 40-bit instruction written in hexadecimal (e.g., `FEDCBA9876`)
+- Read and stored during simulation `initial` block
+
+
